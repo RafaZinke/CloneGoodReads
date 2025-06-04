@@ -1,20 +1,19 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\BookController;
+use App\Http\Controllers\AuthorController;
 
-Route::get('/', function () {
-    return view('welcome');
+// Comente ou remova esta linha (que exibe a welcome page padrão):
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+
+// Redirecione a rota raiz ("/") para a listagem de livros:
+Route::get('/', function() {
+    return redirect()->route('books.index');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
-
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
-
-require __DIR__.'/auth.php';
+// Agora registre as rotas resource para Books e Authors:
+Route::resource('books', BookController::class);
+Route::resource('authors', AuthorController::class);
