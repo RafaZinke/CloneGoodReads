@@ -1,43 +1,33 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="csrf-token" content="{{ csrf_token() }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>@yield('title', 'CloneGoodReads')</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="{{ asset('css/custom.css') }}" rel="stylesheet">
+</head>
+<body class="bg-light text-dark">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-4">
+    <div class="container">
+      <a class="navbar-brand" href="{{ route('books.index') }}">CloneGoodReads</a>
+      <div class="collapse navbar-collapse">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="{{ route('books.index') }}">Livros</a></li>
+          <li class="nav-item"><a class="nav-link" href="{{ route('authors.index') }}">Autores</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
 
-        <title>{{ config('app.name', 'Laravel') }}</title>
+  <main class="container">
+    @yield('content')
+  </main>
 
-        <!-- Fonts (opcional) -->
-        <link rel="preconnect" href="https://fonts.bunny.net">
-        <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+  <footer class="text-center py-4">
+    <small>&copy; {{ date('Y') }} CloneGoodReads</small>
+  </footer>
 
-        <!-- Vite: carrega o app.css (Tailwind ou Bootstrap) e app.js -->
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
-
-        <!-- Seu CSS customizado -->
-        <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
-    </head>
-    <body class="font-sans antialiased">
-        <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
-            @include('layouts.navigation')
-
-            <!-- Page Heading (opcional) -->
-            @isset($header)
-                <header class="bg-white dark:bg-gray-800 shadow">
-                    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                        {{ $header }}
-                    </div>
-                </header>
-            @endisset
-
-            <!-- Page Content -->
-            <main>
-                @yield('content')
-            </main>
-        </div>
-
-        <!-- SweetAlert2 (para pop-ups) -->
-        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-        @stack('scripts')
-    </body>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
 </html>
